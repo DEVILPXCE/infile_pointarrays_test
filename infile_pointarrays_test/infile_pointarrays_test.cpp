@@ -36,7 +36,7 @@ int main()
 	string psw;
 	int n = 0;
 
-	ofstream outfile("infile_pointarrays_test", ios::out);
+	ofstream outfile("infile_pointarrays_test", ios::app);
 
 	Users *p_user = new Users[10];
 
@@ -62,26 +62,29 @@ int main()
 	if (!infile)
 		cout << "OPEN ERROR" << endl;
 
-	//while (getline(infile, nm) && getline(infile, id) && getline(infile, psw))
-		//p_user[n++].setUser(nm, id, psw);
+	//long filelen = infile.tellg();//获取文件长度
+	//infile.seekg(0,ios::beg);
 
-	long filelen = infile.tellg();
-	//filelen = infile.tellg();//获取文件长度
-	infile.seekg(0,ios::beg);
+	long filelen;
+	infile.seekg(0,ios::end);
+	filelen = infile.tellg();
+	infile.seekg(0, ios::beg);
 
 
 	//while (!infile.eof())
-	while(filelen==infile.tellg())
+	while(filelen!=infile.tellg()&&n<10)
 	{
-		getline(infile, nm);
+		getline(infile, nm);//?
 		//getline(infile, id);
-		infile >> id;
+		infile >> id;//?
 		//getline(infile, psw);
-		infile >> psw;
+		infile >> psw;//?
 		cout << "infile succeed" << endl;
 		p_user[n++].setUser(nm, id, psw);
 		cout << "setuser succeed" << endl;
-
+		nm = "blank";
+		id = 111;
+		psw = "blank";
 	};
 	infile.seekg(0, ios::end);
 
